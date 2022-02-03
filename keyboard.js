@@ -11,35 +11,33 @@ const storageData = browser.storage.local.get();
 storageData.then(storedSetup, onError);
 
 function storedSetup(settings) {
-	if (!settings.hasOwnProperty("scaleValue") || settings.scaleValue === null) {
-		browser.storage.local.set({
-			scaleValue: 90,
-		});
-		settings.scaleValue = 90;
-	}
-	if (!settings.hasOwnProperty("numpadState") || settings.numpadState === null) {
-		browser.storage.local.set({
-			numpadState: "auto",
-		});
-		settings.numpadState = "auto"
-	}
-	
-	var zoomValue = window.devicePixelRatio;
-	fxKeyboard.settings.scale = ((settings.scaleValue/zoomValue)/100);
-	fxKeyboard.settings.numpadState = settings.numpadState;
-	console.log(fxKeyboard.settings.scale);
+    if (!settings.hasOwnProperty("scaleValue") || settings.scaleValue === null) {
+        browser.storage.local.set({
+            scaleValue: 90,
+        });
+        settings.scaleValue = 90;
+    }
+    if (!settings.hasOwnProperty("numpadState") || settings.numpadState === null) {
+        browser.storage.local.set({
+            numpadState: "auto",
+        });
+        settings.numpadState = "auto"
+    }
+
+    var zoomValue = window.devicePixelRatio;
+    fxKeyboard.settings.scale = ((settings.scaleValue / zoomValue) / 100);
+    fxKeyboard.settings.numpadState = settings.numpadState;
+    console.log(fxKeyboard.settings.scale);
 }
 
 function onError(error) {
-	console.log("Failed to get stored data from internal storage");
+    console.log("Failed to get stored data from internal storage");
 }
 
 var xpath = {
-    getXPathOfElement: function (elt)
-    {
+    getXPathOfElement: function(elt) {
         var path = "";
-        for (; elt && elt.nodeType == 1; elt = elt.parentNode)
-        {
+        for (; elt && elt.nodeType == 1; elt = elt.parentNode) {
             idx = xpath.getElementIdx(elt);
             xname = elt.tagName;
             if (idx > 1)
@@ -48,12 +46,10 @@ var xpath = {
         }
         return path;
     },
-    
-    getElementIdx: function (elt)
-    {
+
+    getElementIdx: function(elt) {
         var count = 1;
-        for (var sib = elt.previousSibling; sib; sib = sib.previousSibling)
-        {
+        for (var sib = elt.previousSibling; sib; sib = sib.previousSibling) {
             if (sib.nodeType == 1 && sib.tagName == elt.tagName)
                 count++
         }
@@ -62,73 +58,73 @@ var xpath = {
     }
 };
 
-var FxKeyboardLocale = '{'+
-    '"name": "English",'+
-    '"locale": "en",'+
-    '"defaultFlex": "10",'+
-    '"main": [['+
-            '["`", "~"],'+
-            '["1", "!"],'+
-            '["2", "@"],'+
-            '["3", "#"],'+
-            '["4", "$"],'+
-            '["5", "%"],'+
-            '["6", "^"],'+
-            '["7", "&"],'+
-            '["8", "*"],'+
-            '["9", "("],'+
-            '["0", ")"],'+
-            '["-", "_"],'+
-            '["=", "+"],'+
-            '[{"label": "Delete", "special": 8, "flex": 10, "type": "repeat"}]'+ // backspace
-        '], ['+
-            '[{"label": "Tab", "string": "\\t", "flex": 1}],'+ // TAB
-            '["q", "Q"],'+
-            '["w", "W"],'+
-            '["e", "E"],'+
-            '["r", "R"],'+
-            '["t", "T"],'+
-            '["y", "Y"],'+
-            '["u", "U"],'+
-            '["i", "I"],'+
-            '["o", "O"],'+
-            '["p", "P"],'+
-            '["&#91;", "&#123;"],'+
-            '["&#93;", "&#125;"],'+
-            '["\\\\","|","1"]'+
-        "], ["+
-            '[{"label": "@", "string":"@", "flex": 10, "special": 50}],'+
-            '["a", "A"],'+
-            '["s", "S"],'+
-            '["d", "D"],'+
-            '["f", "F"],'+
-            '["g", "G"],'+
-            '["h", "H"],'+
-            '["j", "J"],'+
-            '["k", "K"],'+
-            '["l", "L"],'+
-            '[";", ":"],'+
-            '["\'", "\\""],'+
-            '[{"label": "Enter", "flex": 15, "special": 13}]'+
-        '], ['+
-            '[{"label": "Shift", "flex": 10, "special": "shift"}],'+
-            '["z", "Z"],'+
-            '["x", "X"],'+
-            '["c", "C"],'+
-            '["v", "V"],'+
-            '["b", "B"],'+
-            '["n", "N"],'+
-            '["m", "M"],'+
-            '[",", "<"],'+
-            '[".", ">"],'+
-            '["/", "?"],'+
-            '[{"label": "Close","special": "closeFX","flex": 10}]'+
-        '], ['+
-            '[{"label": "Space", "flex": 5, "special": 32}],'+ // space
-            '[{"label":".com", "flex": 1}],'+
-            '[{"label":".au", "flex": 1}]'+
-        ']]'+
-'}';
+var FxKeyboardLocale = '{' +
+    '"name": "English",' +
+    '"locale": "en",' +
+    '"defaultFlex": "10",' +
+    '"main": [[' +
+    '["`", "~"],' +
+    '["1", "!"],' +
+    '["2", "@"],' +
+    '["3", "#"],' +
+    '["4", "$"],' +
+    '["5", "%"],' +
+    '["6", "^"],' +
+    '["7", "&"],' +
+    '["8", "*"],' +
+    '["9", "("],' +
+    '["0", ")"],' +
+    '["-", "_"],' +
+    '["=", "+"],' +
+    '[{"label": "Delete", "special": 8, "flex": 10, "type": "repeat"}]' + // backspace
+    '], [' +
+    '[{"label": "Tab", "string": "\\t", "flex": 1}],' + // TAB
+    '["q", "Q"],' +
+    '["w", "W"],' +
+    '["e", "E"],' +
+    '["r", "R"],' +
+    '["t", "T"],' +
+    '["y", "Y"],' +
+    '["u", "U"],' +
+    '["i", "I"],' +
+    '["o", "O"],' +
+    '["p", "P"],' +
+    '["&#91;", "&#123;"],' +
+    '["&#93;", "&#125;"],' +
+    '["\\\\","|","1"]' +
+    "], [" +
+    '[{"label": "@", "string":"@", "flex": 10, "special": 50}],' +
+    '["a", "A"],' +
+    '["s", "S"],' +
+    '["d", "D"],' +
+    '["f", "F"],' +
+    '["g", "G"],' +
+    '["h", "H"],' +
+    '["j", "J"],' +
+    '["k", "K"],' +
+    '["l", "L"],' +
+    '["ñ", "Ñ"],' +
+    '["\'", "\\""],' +
+    '[{"label": "Enter", "flex": 15, "special": 13}]' +
+    '], [' +
+    '[{"label": "Shift", "flex": 10, "special": "shift"}],' +
+    '["z", "Z"],' +
+    '["x", "X"],' +
+    '["c", "C"],' +
+    '["v", "V"],' +
+    '["b", "B"],' +
+    '["n", "N"],' +
+    '["m", "M"],' +
+    '[",", "<"],' +
+    '[".", ">"],' +
+    '["/", "?"],' +
+    '[{"label": "Close","special": "closeFX","flex": 10}]' +
+    '], [' +
+    '[{"label": "Space", "flex": 5, "special": 32}],' + // space
+    '[{"label":".com", "flex": 1}],' +
+    '[{"label":".au", "flex": 1}]' +
+    ']]' +
+    '}';
 
 FxKeyNumpad = JSON.stringify({
     "name": "English",
@@ -136,92 +132,103 @@ FxKeyNumpad = JSON.stringify({
     "defaultFlex": "10",
     "main": [
         [
-            ["1"], ["2"], ["3"] 
-        ], [
-            ["4"], ["5"], ["6"]
-        ], [
-            ["7"], ["8"], ["9"]
-        ], [
-            ["0"], [{"label": "Delete", "special": 8, "flex": 1, "type": "repeat"}]
-        ], [
-            [{"label": "Close","special": "closeFX","flex": 1}]
+            ["1"],
+            ["2"],
+            ["3"]
+        ],
+        [
+            ["4"],
+            ["5"],
+            ["6"]
+        ],
+        [
+            ["7"],
+            ["8"],
+            ["9"]
+        ],
+        [
+            ["0"],
+            [{ "label": "Delete", "special": 8, "flex": 1, "type": "repeat" }]
+        ],
+        [
+            [{ "label": "Close", "special": "closeFX", "flex": 1 }]
         ]
     ]
 });
 
 var FxKeyMap = '{' +
-        '"`": 192,' +
-        '"~": 192,' +
-        '"1": 49,' +
-        '"!": 49,' +
-        '"2": 50,' +
-        '"@": 50,' +
-        '"3": 51,' +
-        '"#": 51,' +
-        '"4": 52,' +
-        '"$": 52,' +
-        '"5": 53,' +
-        '"%": 53,' +
-        '"6": 54,' +
-        '"^": 54,' +
-        '"7": 55,' +
-        '"&": 55,' +
-        '"8": 56,' +
-        '"*": 56,' +
-        '"9": 57,' +
-        '"(": 57,' +
-        '"0": 48,' +
-        '")": 48,' +
-        '"-": 173,' +
-        '"_": 173,' +
-        '"=": 61,' +
-        '"+": 61,' +
-        '"Delete": 8,' +
-        '"q": 81,' +
-        '"w": 87,' +
-        '"e": 69,' +
-        '"r": 82,' +
-        '"t": 84,' +
-        '"y": 89,' +
-        '"u": 85,' +
-        '"i": 73,' +
-        '"o": 79,' +
-        '"p": 80,' +
-        '"[": 219,' +
-        '"{": 219,' +
-        '"}": 221,' +
-        '"]": 221,' +
-        '"\\\\": 220,' +
-        '"|": 220,' +
-        '"a": 65,' +
-        '"s": 83,' +
-        '"d": 68,' +
-        '"f": 70,' +
-        '"g": 71,' +
-        '"h": 72,' +
-        '"j": 74,' +
-        '"k": 75,' +
-        '"l": 76,' +
-        '";": 59,' +
-        '":": 59,' +
-        '"\'": 222,' +
-        '"\\"": 222,' +
-        '"Enter": 13,' +
-        '"z": 90,' +
-        '"x": 88,' +
-        '"c": 67,' +
-        '"v": 86,' +
-        '"b": 66,' +
-        '"n": 78,' +
-        '"m": 77,' +
-        '",": 188,' +
-        '"<": 188,' +
-        '".": 190,' +
-        '">": 190,' +
-        '"/": 191,' +
-        '"?": 191' +
-        '}';
-        
+    '"`": 192,' +
+    '"~": 192,' +
+    '"1": 49,' +
+    '"!": 49,' +
+    '"2": 50,' +
+    '"@": 50,' +
+    '"3": 51,' +
+    '"#": 51,' +
+    '"4": 52,' +
+    '"$": 52,' +
+    '"5": 53,' +
+    '"%": 53,' +
+    '"6": 54,' +
+    '"^": 54,' +
+    '"7": 55,' +
+    '"&": 55,' +
+    '"8": 56,' +
+    '"*": 56,' +
+    '"9": 57,' +
+    '"(": 57,' +
+    '"0": 48,' +
+    '")": 48,' +
+    '"-": 173,' +
+    '"_": 173,' +
+    '"=": 61,' +
+    '"+": 61,' +
+    '"Delete": 8,' +
+    '"q": 81,' +
+    '"w": 87,' +
+    '"e": 69,' +
+    '"r": 82,' +
+    '"t": 84,' +
+    '"y": 89,' +
+    '"u": 85,' +
+    '"i": 73,' +
+    '"o": 79,' +
+    '"p": 80,' +
+    '"[": 219,' +
+    '"{": 219,' +
+    '"}": 221,' +
+    '"]": 221,' +
+    '"\\\\": 220,' +
+    '"|": 220,' +
+    '"a": 65,' +
+    '"s": 83,' +
+    '"d": 68,' +
+    '"f": 70,' +
+    '"g": 71,' +
+    '"h": 72,' +
+    '"j": 74,' +
+    '"k": 75,' +
+    '"l": 76,' +
+    '"ñ": 164,' +
+    '"Ñ": 165,' +
+    '"\'": 222,' +
+    '"\\"": 222,' +
+    '"Enter": 13,' +
+    '"z": 90,' +
+    '"x": 88,' +
+    '"c": 67,' +
+    '"v": 86,' +
+    '"b": 66,' +
+    '"n": 78,' +
+    '"m": 77,' +
+    '",": 188,' +
+    '"<": 188,' +
+    '".": 190,' +
+    '">": 190,' +
+    '"/": 191,' +
+    '"?": 191' +
+    '}';
+
 
 var fxKeyboard = {
 
@@ -233,23 +240,23 @@ var fxKeyboard = {
         secScaleX: 0,
         secScaleY: 0,
         scale: 0,
-		numpadState: "auto",
+        numpadState: "auto",
         preScale: 0,
         padding: 8,
         kb_max_width: window.innerWidth,
-        kb_max_height: window.innerWidth*0.30,
+        kb_max_height: window.innerWidth * 0.30,
         np_max_width: 220,
         np_max_height: 375,
-		key_height: window.innerWidth*0.05
+        key_height: window.innerWidth * 0.05
     },
-    
+
     hierarchy: {
         isMaster: true,
         pathInMaster: null,
         slavedIFrame: null
     },
 
-    _toggleOpen: function (open) {
+    _toggleOpen: function(open) {
         if (document.getElementById(this.activeOSK) === null) {
             this.insertKeyboard(this.activeOSK);
         }
@@ -262,9 +269,12 @@ var fxKeyboard = {
         }
         if (open) {
             if (!this.hierarchy.isMaster) {
-                window.parent.postMessage(JSON.stringify({"directive": "master", "command": 
-                            {"input": fxKeyboard.activeOSK, "state": open, "elementYTop": this.focusElementYTop, "elementYBottom": this.focusElementYBottom}
-                    , "xpath": this.hierarchy.pathInMaster, "uri": this.settings.startingURL}), "*");
+                window.parent.postMessage(JSON.stringify({
+                    "directive": "master",
+                    "command": { "input": fxKeyboard.activeOSK, "state": open, "elementYTop": this.focusElementYTop, "elementYBottom": this.focusElementYBottom },
+                    "xpath": this.hierarchy.pathInMaster,
+                    "uri": this.settings.startingURL
+                }), "*");
             } else {
                 if (kb.style.display !== 'block') {
                     if (this.previousOSK !== null ? this.previousOSK !== this.activeOSK && document.getElementById(fxKeyboard.previousOSK).style.display !== "none" : false) {
@@ -273,25 +283,25 @@ var fxKeyboard = {
                     kb.style.display = "block";
                     this.previousOSK = this.activeOSK;
                 }
-				kb.style.width = this.getMaxWidth(this.activeOSK) * this.settings.scale + "px";
-				kb.style.height = this.getMaxHeight(this.activeOSK) * this.settings.scale + "px";
-				kb.style.padding = this.settings.padding * this.settings.scale + "px";
-				kb.style.fontFamily = "arial,sans-serif";
-				kb.style.color = "#000000";
-				kb.style.fontSize = 35 * this.settings.scale + "px";
-				kb.style.borderRadius = 5 * this.settings.scale + "px";
-				for (const element of kb.childNodes) {
-					for (const chNodes of element.childNodes) {
-						chNodes.style.width = this.settings.key_height * this.settings.scale + "px";
-						chNodes.style.height = this.settings.key_height * this.settings.scale + "px";
-						chNodes.style.margin = this.settings.padding * (this.settings.scale / 2) + "px";
-						chNodes.style.borderRadius = 5*this.settings.scale+"px";
-					}
-				}
-                if ((((kb.getBoundingClientRect().top !== 0 ? this.focusElementYBottom : this.focusElementYTop) + window.scrollY) > 
+                kb.style.width = this.getMaxWidth(this.activeOSK) * this.settings.scale + "px";
+                kb.style.height = this.getMaxHeight(this.activeOSK) * this.settings.scale + "px";
+                kb.style.padding = this.settings.padding * this.settings.scale + "px";
+                kb.style.fontFamily = "arial,sans-serif";
+                kb.style.color = "#000000";
+                kb.style.fontSize = 35 * this.settings.scale + "px";
+                kb.style.borderRadius = 5 * this.settings.scale + "px";
+                for (const element of kb.childNodes) {
+                    for (const chNodes of element.childNodes) {
+                        chNodes.style.width = this.settings.key_height * this.settings.scale + "px";
+                        chNodes.style.height = this.settings.key_height * this.settings.scale + "px";
+                        chNodes.style.margin = this.settings.padding * (this.settings.scale / 2) + "px";
+                        chNodes.style.borderRadius = 5 * this.settings.scale + "px";
+                    }
+                }
+                if ((((kb.getBoundingClientRect().top !== 0 ? this.focusElementYBottom : this.focusElementYTop) + window.scrollY) >
                         ((kb.getBoundingClientRect().top !== 0 ? kb.getBoundingClientRect().top : kb.getBoundingClientRect().bottom) + window.scrollY))) {
                     kb.style.top = 0;
-                } else if ((((kb.getBoundingClientRect().bottom !== window.innerHeight ? kb.getBoundingClientRect().bottom : kb.getBoundingClientRect().top) + window.scrollY) > 
+                } else if ((((kb.getBoundingClientRect().bottom !== window.innerHeight ? kb.getBoundingClientRect().bottom : kb.getBoundingClientRect().top) + window.scrollY) >
                         ((kb.getBoundingClientRect().bottom !== window.innerHeight ? this.focusElementYTop : this.focusElementYBottom) + window.scrollY))) {
                     kb.style.bottom = 0;
                     kb.style.top = null;
@@ -299,18 +309,18 @@ var fxKeyboard = {
             }
         } else {
             if (!this.hierarchy.isMaster) {
-                window.parent.postMessage(JSON.stringify({"directive": "master", "command": {"input": this.activeOSK, "state": open}}), "*");
+                window.parent.postMessage(JSON.stringify({ "directive": "master", "command": { "input": this.activeOSK, "state": open } }), "*");
             } else {
                 kb.style.display = "none";
                 this.focusElement = null;
             }
         }
     },
-	
-	_isOSKOpen: function() {
-		var kb = document.getElementById(this.activeOSK);
-		return kb != null ? kb.style.display === 'block' : false;
-	},
+
+    _isOSKOpen: function() {
+        var kb = document.getElementById(this.activeOSK);
+        return kb != null ? kb.style.display === 'block' : false;
+    },
 
     /*
      states:
@@ -324,78 +334,78 @@ var fxKeyboard = {
     focusElement: null,
     focusElementYBottom: 0,
     focusElementYTop: 0,
-    inputTypes: {"numpad": "fxnumpad", "keyboard": "fxkeyboard"},
+    inputTypes: { "numpad": "fxnumpad", "keyboard": "fxkeyboard" },
     previousOSK: null,
     activeOSK: null,
-    
-    _setSpecialFunctions: function(keyD,obj) {
-        keyD.onmousedown = function(){keyD.style.backgroundColor = "rgb(150,150,150)";};
-        keyD.onmouseenter = function(){keyD.style.backgroundColor = "rgb(200,200,200)";};
-        keyD.onmouseout = function(){keyD.style.backgroundColor = "rgb(255,255,255)";};
-        
+
+    _setSpecialFunctions: function(keyD, obj) {
+        keyD.onmousedown = function() { keyD.style.backgroundColor = "rgb(150,150,150)"; };
+        keyD.onmouseenter = function() { keyD.style.backgroundColor = "rgb(200,200,200)"; };
+        keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(255,255,255)"; };
+
         if (obj.label === "Shift") {
-            keyD.onmouseup = function(){
+            keyD.onmouseup = function() {
                 if (fxKeyboard.state === 0) {
                     keyD.style.backgroundColor = "rgb(200,200,200)";
-                    keyD.onmouseout = function(){keyD.style.backgroundColor = "rgb(200,200,200)";};
+                    keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(200,200,200)"; };
                     fxKeyboard.state++;
                 } else if (fxKeyboard.state === 1) {
-                    keyD.onmouseout = function(){keyD.style.backgroundColor = "rgb(150,150,150)";};
+                    keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(150,150,150)"; };
                     keyD.style.backgroundColor = "rgb(150,150,150)";
                     fxKeyboard.state++;
                 } else if (fxKeyboard.state === 2) {
                     fxKeyboard.state = 0;
-                } 
+                }
                 fxKeyboard._setShift();
             };
         } else if (obj.label === "Delete") {
-            keyD.onmouseup = function () {
+            keyD.onmouseup = function() {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
-        } else if (obj.label in {"@":"",".com":"",".au":""}) {
-            keyD.onmouseup = function () {
+        } else if (obj.label in { "@": "", ".com": "", ".au": "" }) {
+            keyD.onmouseup = function() {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
         } else if (obj.label === "Space") {
-            keyD.onmouseup = function () {
+            keyD.onmouseup = function() {
                 fxKeyboard._sendKey(" ");
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
         } else if (obj.label === "Close") {
-            keyD.onmouseup = function () {
+            keyD.onmouseup = function() {
                 fxKeyboard._toggleOpen(false);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
                 fxKeyboard.lastPress = "close";
             };
         } else if (obj.label === "Enter") {
-            keyD.onmouseup = function () {
+            keyD.onmouseup = function() {
                 keyD.style.backgroundColor = "rgb(255,255,255)";
-				fxKeyboard._sendKey(obj.label);
+                fxKeyboard._sendKey(obj.label);
             };
         } else if (obj.label === "Tab") {
-			keyD.onmouseup = function () {
-				keyD.style.backgroundColor = "rgb(255,255,255)";
-				var focussableElements = 'input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
-				console.log(document.activeElement);
-				console.log(document.activeElement.form);
-				if (document.activeElement && document.activeElement.form) {
-					var focussable = Array.prototype.filter.call(document.activeElement.form.querySelectorAll(focussableElements),
-							function (element) {
-								return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
-							});
-					console.log(focussable);
-					var index = focussable.indexOf(document.activeElement);
-					focussable[index+1 >= focussable.length ?  0 : index+1].focus();
-				}
-			};
-		}
-			
+            keyD.onmouseup = function() {
+                keyD.style.backgroundColor = "rgb(255,255,255)";
+                var focussableElements = 'input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+                console.log(document.activeElement);
+                console.log(document.activeElement.form);
+                if (document.activeElement && document.activeElement.form) {
+                    var focussable = Array.prototype.filter.call(document.activeElement.form.querySelectorAll(focussableElements),
+                        function(element) {
+                            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+                        });
+                    console.log(focussable);
+                    var index = focussable.indexOf(document.activeElement);
+                    focussable[index + 1 >= focussable.length ? 0 : index + 1].focus();
+                }
+            };
+        }
+
         return keyD;
     },
-    
-    _setShift: function () {
+
+    _setShift: function() {
         if (this.state > 0) {
             var secElements = document.getElementsByClassName("fxkey-secondary");
             var priElements = document.getElementsByClassName("fxkey-primary");
@@ -410,7 +420,7 @@ var fxKeyboard = {
             var priElements = document.getElementsByClassName("fxkey-primary");
             var shiftK = document.getElementById("fxkey-shift");
             shiftK.style.backgroundColor = "rgb(255,255,255)";
-            shiftK.onmouseout = function(){shiftK.style.backgroundColor = "rgb(255,255,255)";};
+            shiftK.onmouseout = function() { shiftK.style.backgroundColor = "rgb(255,255,255)"; };
             for (var i = 0; secElements.length > i; i++) {
                 secElements[i].style.display = "none";
             }
@@ -419,19 +429,19 @@ var fxKeyboard = {
             }
         }
     },
-    
-    _sendKey: function (character) {
+
+    _sendKey: function(character) {
         if (fxKeyboard.hierarchy.isMaster && fxKeyboard.hierarchy.slavedIFrame != null) {
-            fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({"directive": "slave", "command": "sendKey", "key": character}), "*");
+            fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({ "directive": "slave", "command": "sendKey", "key": character }), "*");
         } else {
             switch (character) {
                 case "Delete":
                     fxKeyboard.focusElement.value = fxKeyboard.focusElement.value.slice(0, -1);
                     break;
                 case "Enter":
-                    fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("beforeinput", {"key": character, "shiftKey": false, "keyCode": (JSON.parse(FxKeyMap))[character]}));
-                    fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("keydown", {"key": character, "shiftKey": false, "code": character, "keyCode": (JSON.parse(FxKeyMap))[character]}));
-                    fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("keyup", {"key": character, "shiftKey": false, "code": character, "keyCode": (JSON.parse(FxKeyMap))[character]}));
+                    fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("beforeinput", { "key": character, "shiftKey": false, "keyCode": (JSON.parse(FxKeyMap))[character] }));
+                    fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("keydown", { "key": character, "shiftKey": false, "code": character, "keyCode": (JSON.parse(FxKeyMap))[character] }));
+                    fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("keyup", { "key": character, "shiftKey": false, "code": character, "keyCode": (JSON.parse(FxKeyMap))[character] }));
                     if (fxKeyboard.focusElement.parentNode.nodeName === 'FORM') {
                         fxKeyboard.focusElement.parentNode.submit();
                     }
@@ -445,19 +455,19 @@ var fxKeyboard = {
                     }
             }
 
-            fxKeyboard.focusElement.dispatchEvent(new Event("keydown", {"bubbles": true, "cancelable": true}));
-            fxKeyboard.focusElement.dispatchEvent(new Event("keypress", {"bubbles": true, "cancelable": true}));
-            fxKeyboard.focusElement.dispatchEvent(new Event("keyup", {"bubbles": true, "cancelable": true}));
-            fxKeyboard.focusElement.dispatchEvent(new Event('input', {"bubbles": true, "cancelable": true}));
-            fxKeyboard.focusElement.dispatchEvent(new Event('change', {"bubbles": true, "cancelable": true}));
+            fxKeyboard.focusElement.dispatchEvent(new Event("keydown", { "bubbles": true, "cancelable": true }));
+            fxKeyboard.focusElement.dispatchEvent(new Event("keypress", { "bubbles": true, "cancelable": true }));
+            fxKeyboard.focusElement.dispatchEvent(new Event("keyup", { "bubbles": true, "cancelable": true }));
+            fxKeyboard.focusElement.dispatchEvent(new Event('input', { "bubbles": true, "cancelable": true }));
+            fxKeyboard.focusElement.dispatchEvent(new Event('change', { "bubbles": true, "cancelable": true }));
         }
     },
-    
-    _buildKey: function (char,primary) {
+
+    _buildKey: function(char, primary) {
         var key = document.createElement("div");
-        key.style.width = this.settings.key_height*this.settings.scale + "px";
-        key.style.height = this.settings.key_height*this.settings.scale + "px";
-        key.style.margin = this.settings.padding*(this.settings.scale/2) + "px";
+        key.style.width = this.settings.key_height * this.settings.scale + "px";
+        key.style.height = this.settings.key_height * this.settings.scale + "px";
+        key.style.margin = this.settings.padding * (this.settings.scale / 2) + "px";
         if (primary) {
             key.id = "fxkey-primary";
             key.className = "fxkey-primary";
@@ -469,16 +479,16 @@ var fxKeyboard = {
         }
         key.style.alignItems = "center";
         key.style.justifyContent = "center";
-        key.style.borderRadius = 5*this.settings.scale+"px";
+        key.style.borderRadius = 5 * this.settings.scale + "px";
         key.style.cursor = "pointer";
         key.style.backgroundColor = "rgb(255,255,255)";
         key.innerHTML = char;
-        key.onmouseenter = function(){key.style.backgroundColor = "rgb(200,200,200)";};
-        key.onmouseout = function(){key.style.backgroundColor = "rgb(255,255,255)";};
-        key.onmousedown = function () {
+        key.onmouseenter = function() { key.style.backgroundColor = "rgb(200,200,200)"; };
+        key.onmouseout = function() { key.style.backgroundColor = "rgb(255,255,255)"; };
+        key.onmousedown = function() {
             key.style.backgroundColor = "rgb(150,150,150)";
         };
-        key.onmouseup = function () {
+        key.onmouseup = function() {
             key.style.backgroundColor = "rgb(200,200,200)";
             if (char.indexOf("&#") !== -1) {
                 char = key.innerHTML;
@@ -491,12 +501,12 @@ var fxKeyboard = {
         };
         return key;
     },
-	
-	_buildKeyFlex: function (char,primary,flex) {
+
+    _buildKeyFlex: function(char, primary, flex) {
         var key = document.createElement("div");
-        key.style.width = this.settings.key_height*this.settings.scale + "px";
-        key.style.height = this.settings.key_height*this.settings.scale + "px";
-        key.style.margin = this.settings.padding*(this.settings.scale/2) + "px";
+        key.style.width = this.settings.key_height * this.settings.scale + "px";
+        key.style.height = this.settings.key_height * this.settings.scale + "px";
+        key.style.margin = this.settings.padding * (this.settings.scale / 2) + "px";
         if (primary) {
             key.id = "fxkey-primary";
             key.className = "fxkey-primary";
@@ -508,18 +518,18 @@ var fxKeyboard = {
         }
         key.style.alignItems = "center";
         key.style.justifyContent = "center";
-        key.style.borderRadius = 5*this.settings.scale+"px";
+        key.style.borderRadius = 5 * this.settings.scale + "px";
         key.style.cursor = "pointer";
-		key.style.flexGrow = flex;
+        key.style.flexGrow = flex;
         key.style.backgroundColor = "rgb(255,255,255)";
         key.innerHTML = char;
-		console.log("FlexGrow of standard key is: "+key.style.flexGrow);
-        key.onmouseenter = function(){key.style.backgroundColor = "rgb(200,200,200)";};
-        key.onmouseout = function(){key.style.backgroundColor = "rgb(255,255,255)";};
-        key.onmousedown = function () {
+        console.log("FlexGrow of standard key is: " + key.style.flexGrow);
+        key.onmouseenter = function() { key.style.backgroundColor = "rgb(200,200,200)"; };
+        key.onmouseout = function() { key.style.backgroundColor = "rgb(255,255,255)"; };
+        key.onmousedown = function() {
             key.style.backgroundColor = "rgb(150,150,150)";
         };
-        key.onmouseup = function () {
+        key.onmouseup = function() {
             key.style.backgroundColor = "rgb(200,200,200)";
             if (char.indexOf("&#") !== -1) {
                 char = key.innerHTML;
@@ -532,29 +542,32 @@ var fxKeyboard = {
         };
         return key;
     },
-    
-    _buildSpecialKey: function (obj) {
+
+    _buildSpecialKey: function(obj) {
         var key = document.createElement("div");
-        key.style.width = this.settings.key_height*this.settings.scale + "px";
-        key.style.height = this.settings.key_height*this.settings.scale + "px";
-        key.style.margin = this.settings.padding*(this.settings.scale/2) + "px";
+        key.style.width = this.settings.key_height * this.settings.scale + "px";
+        key.style.height = this.settings.key_height * this.settings.scale + "px";
+        key.style.margin = this.settings.padding * (this.settings.scale / 2) + "px";
         key.style.display = "flex";
         key.style.alignItems = "center";
         key.style.justifyContent = "center";
         key.style.cursor = "pointer";
         key.style.flexGrow = obj.flex;
-        key.id = "fxkey-"+obj.label.toLowerCase();
-        key.style.borderRadius = 5*this.settings.scale + "px";
+        key.id = "fxkey-" + obj.label.toLowerCase();
+        key.style.borderRadius = 5 * this.settings.scale + "px";
         key.style.backgroundColor = "rgb(255,255,255)";
-        key = this._setSpecialFunctions(key,obj);
+        key = this._setSpecialFunctions(key, obj);
         key.innerHTML = obj.label;
         return key;
     },
 
-    insertKeyboard: function (inputType) {
+    insertKeyboard: function(inputType) {
         var keyb;
-		var max_width = this.getMaxWidth(inputType);
-		var max_height = this.getMaxHeight(inputType);
+
+        //DTS
+        var mod;
+        var max_width = this.getMaxWidth(inputType);
+        var max_height = this.getMaxHeight(inputType);
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 var keys = JSON.parse(FxKeyboardLocale);
@@ -569,31 +582,70 @@ var fxKeyboard = {
                 }
                 break;
         }
+
         //create main Div
         keyb = document.createElement("div");
+        mod = document.createElement("div");
         // parse keyboard keys JSON
-        
-        keyb.setAttribute("tabIndex","-1");
+
+        //DTS
+        mod.setAttribute("tabIndex", "-1");
+        mod.style.top = "50%";
+        mod.style.left = "50%";
+        mod.style.margin = "-50px 0px 0px -180px";
+        mod.style.width = "465px";
+        mod.style.height = "325px";
+        mod.style.position = "fixed";
+        mod.style.zIndex = "999999";
+        mod.style.backgroundColor = "RGBA(255,255,255,0.8)"
+        mod.setAttribute("id", "divElementDTS");
+
+        var titulo = document.createElement("h1");
+        titulo.style.fontSize = "50px";
+        titulo.innerHTML = "¿Desea Continuar?";
+        titulo.style.margin = "78px 0px 0px 25px";
+        //titulo.style.margin = "auto auto 40px -33px";
+        titulo.style.verticalAlign = "center";
+
+
+        var paraPresionar = document.createElement("button");
+        paraPresionar.setAttribute("id", "BotonDTS");
+        paraPresionar.style.margin = "0px 0px 10px 96px";
+        paraPresionar.style.width = "250px";
+        paraPresionar.style.height = "150px";
+        paraPresionar.style.backgroundColor = "#43b02a";
+        paraPresionar.style.fontWeight = "500";
+        paraPresionar.style.fontSize = "80px";
+        paraPresionar.style.color = "white";
+        paraPresionar.style.borderRadius = "15px";
+        paraPresionar.style.borderColor = "#38a12"
+        paraPresionar.innerHTML = "SÍ";
+        paraPresionar.style.verticalAlign = "center";
+
+        mod.appendChild(titulo);
+        mod.appendChild(paraPresionar);
+
+        keyb.setAttribute("tabIndex", "-1");
         keyb.style.backgroundColor = "rgba(0,0,0,0.6)";
-        keyb.style.width = max_width*this.settings.scale + "px";
-        keyb.style.height = max_height*this.settings.scale + "px";
-        keyb.style.padding = this.settings.padding*this.settings.scale + "px";
+        keyb.style.width = max_width * this.settings.scale + "px";
+        keyb.style.height = max_height * this.settings.scale + "px";
+        keyb.style.padding = this.settings.padding * this.settings.scale + "px";
         keyb.style.fontFamily = "arial,sans-serif";
         keyb.style.color = "#000000";
-        keyb.style.fontSize = 35*this.settings.scale+"px";
-        keyb.style.borderRadius = 5*this.settings.scale+"px";
+        keyb.style.fontSize = 35 * this.settings.scale + "px";
+        keyb.style.borderRadius = 5 * this.settings.scale + "px";
         keyb.style.textAlign = "center";
-        keyb.style.position = "fixed"; 
+        keyb.style.position = "fixed";
         keyb.style.left = "50%";
         keyb.style.bottom = 0;
         keyb.style.transform = "translateX(-50%)";
         keyb.id = inputType;
         keyb.style.zIndex = "9999999";
         keyb.style.display = "none"; //hidden on insert.
-		console.log("border radius: "+ keyb.style.borderRadius+ " padding size: "+keyb.style.padding);
+        console.log("border radius: " + keyb.style.borderRadius + " padding size: " + keyb.style.padding);
         if (!document.getElementById(inputType) || this.settings.preScale !== this.settings.scale) {
             if (this.settings.preScale !== this.settings.scale) {
-                var rows = document.getElementsByClassName(inputType+"-r");
+                var rows = document.getElementsByClassName(inputType + "-r");
                 if (rows.length > 0) {
                     for (var row in rows) {
                         document.body.removeChild(rows[row]);
@@ -604,25 +656,25 @@ var fxKeyboard = {
                 var nrow = document.createElement("div");
                 nrow.style.display = "flex";
                 nrow.style.justifyContent = "center";
-                nrow.id = inputType+'-r';
-                nrow.class = inputType+'-r';
+                nrow.id = inputType + '-r';
+                nrow.class = inputType + '-r';
                 for (var button in keys.main[row]) {
                     if (keys.main[row][button][0].constructor === {}.constructor) {
                         var nkey = this._buildSpecialKey(keys.main[row][button][0]);
                         nrow.appendChild(nkey);
                     } else {
-						if (keys.main[row][button].length > 2) {
-							var nkeyprimary = this._buildKeyFlex(keys.main[row][button][0], true, keys.main[row][button][2]);
-						} else {
-							var nkeyprimary = this._buildKey(keys.main[row][button][0], true);
-						}
+                        if (keys.main[row][button].length > 2) {
+                            var nkeyprimary = this._buildKeyFlex(keys.main[row][button][0], true, keys.main[row][button][2]);
+                        } else {
+                            var nkeyprimary = this._buildKey(keys.main[row][button][0], true);
+                        }
                         nrow.appendChild(nkeyprimary);
                         if (keys.main[row].length > 1) {
-							if (keys.main[row][button].length > 2) {
-								var nkeysecondary = this._buildKeyFlex(keys.main[row][button][1], false, keys.main[row][button][2]);
-							} else {
-								var nkeysecondary = this._buildKey(keys.main[row][button][1], false);
-							}
+                            if (keys.main[row][button].length > 2) {
+                                var nkeysecondary = this._buildKeyFlex(keys.main[row][button][1], false, keys.main[row][button][2]);
+                            } else {
+                                var nkeysecondary = this._buildKey(keys.main[row][button][1], false);
+                            }
                             nrow.appendChild(nkeysecondary);
                         }
                     }
@@ -631,34 +683,35 @@ var fxKeyboard = {
             }
         }
         document.body.appendChild(keyb);
+        document.body.appendChild(mod)
         this.settings.preScale = this.settings.scale;
         this._toggleOpen(false);
     },
-	
-	getMaxWidth: function (inputType) {
+
+    getMaxWidth: function(inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
-				return this.settings.kb_max_width;
+                return this.settings.kb_max_width;
             case fxKeyboard.inputTypes.numpad:
                 return this.settings.np_max_width;;
         }
-	},
-	
-	getMaxHeight: function (inputType) {
-		switch (inputType) {
+    },
+
+    getMaxHeight: function(inputType) {
+        switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
-				return this.settings.kb_max_height;
+                return this.settings.kb_max_height;
             case fxKeyboard.inputTypes.numpad:
                 return this.settings.np_max_height;
         }
-	}
+    }
 };
 
 browser.runtime.onMessage.addListener(function begin(message) {
     msg = JSON.parse(message);
     if (msg.directive === "insertKeyboard") {
         if (fxKeyboard.hierarchy.isMaster) {
-            window.parent.postMessage(JSON.stringify({"directive":"master","command":"ping","uri":fxKeyboard.settings.startingURL}),"*");
+            window.parent.postMessage(JSON.stringify({ "directive": "master", "command": "ping", "uri": fxKeyboard.settings.startingURL }), "*");
         }
         if (document.getElementById("fxkeyboard") === null && fxKeyboard.hierarchy.isMaster) {
             console.log("Inserting OSK");
@@ -673,15 +726,15 @@ window.addEventListener("message", function messageReceived(event) {
     if (msg.directive === "slave") {
         switch (msg.command) {
             case "initialize":
-				var preOpen = fxKeyboard._isOSKOpen();
-				if (fxKeyboard.hierarchy.isMaster) {
-					fxKeyboard._toggleOpen(false);
-				}
+                var preOpen = fxKeyboard._isOSKOpen();
+                if (fxKeyboard.hierarchy.isMaster) {
+                    fxKeyboard._toggleOpen(false);
+                }
                 fxKeyboard.hierarchy.isMaster = false;
                 fxKeyboard.hierarchy.pathInMaster = msg.xpath;
-				if (preOpen) {
-					fxKeyboard._toggleOpen(preOpen);
-				}
+                if (preOpen) {
+                    fxKeyboard._toggleOpen(preOpen);
+                }
                 break;
             case "sendKey":
                 fxKeyboard._sendKey(msg.key);
@@ -691,7 +744,7 @@ window.addEventListener("message", function messageReceived(event) {
                 break;
         }
     }
-    
+
     if (msg.directive === "master" && fxKeyboard.hierarchy.isMaster) {
         if (typeof msg.command === 'object') {
             fxKeyboard.activeOSK = msg.command.input;
@@ -701,7 +754,7 @@ window.addEventListener("message", function messageReceived(event) {
                 fxKeyboard.focusElementYBottom = msg.command.elementYBottom + fxKeyboard.hierarchy.slavedIFrame.getBoundingClientRect().top;
                 if (fxKeyboard.hierarchy.slavedIFrame == null) {
                     fxKeyboard.hierarchy.slavedIFrame = document.querySelector('iframe[src="' + msg.uri + '"]');
-                    fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({"directive": "slave", "command": "updateXPath", "xpath": xpath.getXPathOfElement(fxKeyboard.hierarchy.slavedIFrame)}), "*");
+                    fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({ "directive": "slave", "command": "updateXPath", "xpath": xpath.getXPathOfElement(fxKeyboard.hierarchy.slavedIFrame) }), "*");
                 }
                 fxKeyboard._toggleOpen(msg.command.state);
             } else {
@@ -710,7 +763,7 @@ window.addEventListener("message", function messageReceived(event) {
             }
         } else if (msg.command == "ping") {
             var iframe = document.querySelector('iframe[src="' + msg.uri + '"]');
-            iframe.contentWindow.postMessage(JSON.stringify({"directive": "slave", "command": "initialize", "xpath": xpath.getXPathOfElement(iframe)}), "*");
+            iframe.contentWindow.postMessage(JSON.stringify({ "directive": "slave", "command": "initialize", "xpath": xpath.getXPathOfElement(iframe) }), "*");
         }
     }
 }, false);
@@ -738,27 +791,43 @@ document.addEventListener("focusin", function load(clicked) {
 });
 
 var textInputTypes = {
-        'input': '', 'select': '', 'option': '', 'textarea': '', 'textbox': '',
-        'text': '', 'password': '', 'url': '', 'color': '', 'date': '', 'datetime': '',
-        'datetime-local': '', 'email': '', 'month': '', 'search': ''
-    };
+    'input': '',
+    'select': '',
+    'option': '',
+    'textarea': '',
+    'textbox': '',
+    'text': '',
+    'password': '',
+    'url': '',
+    'color': '',
+    'date': '',
+    'datetime': '',
+    'datetime-local': '',
+    'email': '',
+    'month': '',
+    'search': ''
+};
 
 var integerInputTypes = {
-        'number': '', 'range': '', 'tel': '', 'time': '', 'week': ''
-    };
+    'number': '',
+    'range': '',
+    'tel': '',
+    'time': '',
+    'week': ''
+};
 
 function oskAction(clicked) {
-    if ((fxKeyboard.settings.numpadState === "disabled" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in textInputTypes)
-			&& fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "always") {
+    if ((fxKeyboard.settings.numpadState === "disabled" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in textInputTypes) &&
+        fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "always") {
         fxKeyboard.focusElement = document.activeElement;
         fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
         fxKeyboard.focusElementYBottom = document.activeElement.getBoundingClientRect().bottom;
         fxKeyboard.activeOSK = fxKeyboard.inputTypes.keyboard;
         fxKeyboard._toggleOpen(true);
-    } else if ((fxKeyboard.settings.numpadState === "always" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in integerInputTypes) 
-			&& fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "disabled") {
+    } else if ((fxKeyboard.settings.numpadState === "always" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in integerInputTypes) &&
+        fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "disabled") {
         fxKeyboard.focusElement = document.activeElement;
-		fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
+        fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
         fxKeyboard.focusElementYBottom = document.activeElement.getBoundingClientRect().bottom;
         fxKeyboard.activeOSK = fxKeyboard.inputTypes.numpad;
         fxKeyboard._toggleOpen(true);
