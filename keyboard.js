@@ -11,6 +11,7 @@ const storageData = browser.storage.local.get();
 storageData.then(storedSetup, onError);
 
 var mod;
+var EstasAhi = false;
 
 function storedSetup(settings) {
     if (!settings.hasOwnProperty("scaleValue") || settings.scaleValue === null) {
@@ -526,12 +527,12 @@ var fxKeyboard = {
         key.style.backgroundColor = "rgb(255,255,255)";
         key.innerHTML = char;
         console.log("FlexGrow of standard key is: " + key.style.flexGrow);
-        key.onmouseenter = function () { key.style.backgroundColor = "rgb(200,200,200)"; };
-        key.onmouseout = function () { key.style.backgroundColor = "rgb(255,255,255)"; };
-        key.onmousedown = function () {
+        key.onmouseenter = function() { key.style.backgroundColor = "rgb(200,200,200)"; };
+        key.onmouseout = function() { key.style.backgroundColor = "rgb(255,255,255)"; };
+        key.onmousedown = function() {
             key.style.backgroundColor = "rgb(150,150,150)";
         };
-        key.onmouseup = function () {
+        key.onmouseup = function() {
             key.style.backgroundColor = "rgb(200,200,200)";
             if (char.indexOf("&#") !== -1) {
                 char = key.innerHTML;
@@ -590,6 +591,7 @@ var fxKeyboard = {
         // parse keyboard keys JSON
 
         //DTS
+
         mod.setAttribute("tabIndex", "-1");
         mod.style.top = "50%";
         mod.style.left = "50%";
@@ -623,13 +625,15 @@ var fxKeyboard = {
         paraPresionar.innerHTML = "SÍ";
         paraPresionar.style.verticalAlign = "center";
 
-        paraPresionar.onmousedown = function () { 
+        paraPresionar.onmousedown = function() {
             mod.setAttribute("hidden", "true");
-            resetTimer() 
+            EstasAhi = true;
+            resetTimer();
         };
 
         mod.appendChild(titulo);
         mod.appendChild(paraPresionar);
+
 
         keyb.setAttribute("tabIndex", "-1");
         keyb.style.backgroundColor = "rgba(0,0,0,0.6)";
@@ -694,7 +698,7 @@ var fxKeyboard = {
         this._toggleOpen(false);
     },
 
-    getMaxWidth: function (inputType) {
+    getMaxWidth: function(inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 return this.settings.kb_max_width;
@@ -703,7 +707,7 @@ var fxKeyboard = {
         }
     },
 
-    getMaxHeight: function (inputType) {
+    getMaxHeight: function(inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 return this.settings.kb_max_height;
@@ -859,14 +863,13 @@ document.addEventListener("dragend", function load(clicked) {
 
 
 var time;
-window.onload = resetTimer;
 // DOM Events
 document.onload = resetTimer;
 document.onmousemove = resetTimer;
 document.onmousedown = resetTimer; // touchscreen presses
 document.ontouchstart = resetTimer;
-document.onclick = resetTimer;     // touchpad clicks
-document.onkeydown = resetTimer;   // onkeypress is deprectaed
+document.onclick = resetTimer; // touchpad clicks
+document.onkeydown = resetTimer; // onkeypress is deprectaed
 document.addEventListener('scroll', resetTimer, true); // improved; see comments
 
 function logout() {
@@ -874,15 +877,20 @@ function logout() {
         resetTimer();
     } else {
         mod.removeAttribute("hidden");
-        /*setTimeout(() => {
-            window.location.href = "https://www.bancofalabella.cl/"
-        }, 5000);*/
-        //alert("redireccionado");
+        setTimeout(() => {
+            if (EstasAhi) {
+                resetTimer();
+                EstasAhi = false;
+            } else {
+                window.location.href = "https://www.bancofalabella.cl/"
+                EstasAhi = false;
+            }
+
+        }, 5000);
     }
 }
 
 function resetTimer() {
     clearTimeout(time);
     time = setTimeout(logout, 10000)
-    // 1000 milliseconds = 1 second
 }
