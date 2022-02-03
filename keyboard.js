@@ -886,11 +886,11 @@ function logout() {
                 EstasAhi = false;
             }
 
-        }, 5000);
+        }, 7000);
     }
 }
 
 function resetTimer() {
     clearTimeout(time);
-    time = setTimeout(logout, 10000)
+    time = setTimeout(logout, 15000)
 }
