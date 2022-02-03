@@ -10,6 +10,8 @@ const storageData = browser.storage.local.get();
 
 storageData.then(storedSetup, onError);
 
+var mod;
+
 function storedSetup(settings) {
     if (!settings.hasOwnProperty("scaleValue") || settings.scaleValue === null) {
         browser.storage.local.set({
@@ -122,7 +124,7 @@ var FxKeyboardLocale = '{' +
     '], [' +
     '[{"label": "Space", "flex": 5, "special": 32}],' + // space
     '[{"label":".com", "flex": 1}],' +
-    '[{"label":".au", "flex": 1}]' +
+    '[{"label":".cl", "flex": 1}]' +
     ']]' +
     '}';
 
@@ -524,12 +526,12 @@ var fxKeyboard = {
         key.style.backgroundColor = "rgb(255,255,255)";
         key.innerHTML = char;
         console.log("FlexGrow of standard key is: " + key.style.flexGrow);
-        key.onmouseenter = function() { key.style.backgroundColor = "rgb(200,200,200)"; };
-        key.onmouseout = function() { key.style.backgroundColor = "rgb(255,255,255)"; };
-        key.onmousedown = function() {
+        key.onmouseenter = function () { key.style.backgroundColor = "rgb(200,200,200)"; };
+        key.onmouseout = function () { key.style.backgroundColor = "rgb(255,255,255)"; };
+        key.onmousedown = function () {
             key.style.backgroundColor = "rgb(150,150,150)";
         };
-        key.onmouseup = function() {
+        key.onmouseup = function () {
             key.style.backgroundColor = "rgb(200,200,200)";
             if (char.indexOf("&#") !== -1) {
                 char = key.innerHTML;
@@ -565,7 +567,6 @@ var fxKeyboard = {
         var keyb;
 
         //DTS
-        var mod;
         var max_width = this.getMaxWidth(inputType);
         var max_height = this.getMaxHeight(inputType);
         switch (inputType) {
@@ -599,12 +600,12 @@ var fxKeyboard = {
         mod.style.zIndex = "999999";
         mod.style.backgroundColor = "RGBA(255,255,255,0.8)"
         mod.setAttribute("id", "divElementDTS");
+        mod.setAttribute("hidden", "true");
 
         var titulo = document.createElement("h1");
         titulo.style.fontSize = "50px";
         titulo.innerHTML = "¿Desea Continuar?";
         titulo.style.margin = "78px 0px 0px 25px";
-        //titulo.style.margin = "auto auto 40px -33px";
         titulo.style.verticalAlign = "center";
 
 
@@ -621,6 +622,11 @@ var fxKeyboard = {
         paraPresionar.style.borderColor = "#38a12"
         paraPresionar.innerHTML = "SÍ";
         paraPresionar.style.verticalAlign = "center";
+
+        paraPresionar.onmousedown = function () { 
+            mod.setAttribute("hidden", "true");
+            resetTimer() 
+        };
 
         mod.appendChild(titulo);
         mod.appendChild(paraPresionar);
@@ -688,7 +694,7 @@ var fxKeyboard = {
         this._toggleOpen(false);
     },
 
-    getMaxWidth: function(inputType) {
+    getMaxWidth: function (inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 return this.settings.kb_max_width;
@@ -697,7 +703,7 @@ var fxKeyboard = {
         }
     },
 
-    getMaxHeight: function(inputType) {
+    getMaxHeight: function (inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 return this.settings.kb_max_height;
@@ -850,3 +856,33 @@ document.addEventListener("dragend", function load(clicked) {
         clicked.preventDefault();
     }
 });
+
+
+var time;
+window.onload = resetTimer;
+// DOM Events
+document.onload = resetTimer;
+document.onmousemove = resetTimer;
+document.onmousedown = resetTimer; // touchscreen presses
+document.ontouchstart = resetTimer;
+document.onclick = resetTimer;     // touchpad clicks
+document.onkeydown = resetTimer;   // onkeypress is deprectaed
+document.addEventListener('scroll', resetTimer, true); // improved; see comments
+
+function logout() {
+    if ((window.location.origin) === "https://www.bancofalabella.cl") {
+        resetTimer();
+    } else {
+        mod.removeAttribute("hidden");
+        /*setTimeout(() => {
+            window.location.href = "https://www.bancofalabella.cl/"
+        }, 5000);*/
+        //alert("redireccionado");
+    }
+}
+
+function resetTimer() {
+    clearTimeout(time);
+    time = setTimeout(logout, 10000)
+    // 1000 milliseconds = 1 second
+}
