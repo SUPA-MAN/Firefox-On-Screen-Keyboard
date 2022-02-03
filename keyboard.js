@@ -94,7 +94,7 @@ var FxKeyboardLocale = '{' +
     '["p", "P"],' +
     '["&#91;", "&#123;"],' +
     '["&#93;", "&#125;"],' +
-    '["\\\\","|","1"]' +
+    '[{"label": "HOME", "flex": 3, "special": "HOME"}]' +
     "], [" +
     '[{"label": "@", "string":"@", "flex": 10, "special": 50}],' +
     '["a", "A"],' +
@@ -201,7 +201,6 @@ var FxKeyMap = '{' +
     '"{": 219,' +
     '"}": 221,' +
     '"]": 221,' +
-    '"\\\\": 220,' +
     '"|": 220,' +
     '"a": 65,' +
     '"s": 83,' +
@@ -403,7 +402,12 @@ var fxKeyboard = {
                     focussable[index + 1 >= focussable.length ? 0 : index + 1].focus();
                 }
             };
-        }
+        } else if (obj.label === "HOME") {
+            keyD.onmouseup = function() {
+                window.location.href = "https://www.bancofalabella.cl/";
+            }
+        };
+
 
         return keyD;
     },
