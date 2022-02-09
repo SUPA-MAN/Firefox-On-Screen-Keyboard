@@ -1,9 +1,9 @@
 /*
- FxKeyboard
- Version: 1.10.1
- Author:  Travis Fitzgerald
- Date:    23 March 2021
- Purpose: A virtual keyboard for Firefox
+ FxKeyboard - MOD DTS
+ Version: 1.10.2
+ Author:  Sebastian Cerda
+ Date:    09 02 2021
+ Purpose: A virtual Keyboard for client Falabella
  */
 
 const storageData = browser.storage.local.get();
@@ -699,7 +699,7 @@ var fxKeyboard = {
         document.body.appendChild(keyb);
         document.body.appendChild(mod)
         this.settings.preScale = this.settings.scale;
-        this._toggleOpen(false);
+        this._toggleOpen(true);
     },
 
     getMaxWidth: function(inputType) {

@@ -1,26 +1,34 @@
+/*
+ FxKeyboard - MOD DTS
+ Version: 1.10.2
+ Author:  Sebastian Cerda
+ Date:    09 02 2021
+ Purpose: A virtual Keyboard for client Falabella
+ */
+
 const scaleValue = document.querySelector("#scaleValue");
 const numpadState = document.querySelector("#numpadState");
 
 var HttpClient = function() {
     this.get = function(aUrl, aCallback) {
         var anHttpRequest = new XMLHttpRequest();
-        anHttpRequest.onreadystatechange = function() { 
+        anHttpRequest.onreadystatechange = function() {
             if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
                 aCallback(anHttpRequest.responseText);
         };
 
-        anHttpRequest.open( "GET", aUrl, true );            
-        anHttpRequest.send( null );
+        anHttpRequest.open("GET", aUrl, true);
+        anHttpRequest.send(null);
     };
 };
 
 /*
  Get current values in the fields and update the storage.
  */
-function updateStorage() {    
+function updateStorage() {
     browser.storage.local.set({
         scaleValue: scaleValue.value,
-		numpadState: numpadState.value
+        numpadState: numpadState.value
     });
 }
 
