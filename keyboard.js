@@ -110,7 +110,7 @@ var FxKeyboardLocale = '{' +
     '["\'", "\\""],' +
     '[{"label": "Enter", "flex": 15, "special": 13}]' +
     '], [' +
-    '[{"label": "Mayus", "flex": 10, "special": "shift"}],' +
+    '[{"label": "Shift", "flex": 10, "special": "shift"}],' +
     '["z", "Z"],' +
     '["x", "X"],' +
     '["c", "C"],' +
@@ -345,7 +345,7 @@ var fxKeyboard = {
         keyD.onmouseenter = function() { keyD.style.backgroundColor = "rgb(200,200,200)"; };
         keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(255,255,255)"; };
 
-        if (obj.label === "Mayus") {
+        if (obj.label === "Shift") {
             keyD.onmouseup = function() {
                 if (fxKeyboard.state === 0) {
                     keyD.style.backgroundColor = "rgb(200,200,200)";
@@ -606,7 +606,7 @@ var fxKeyboard = {
         mod.style.zIndex = "999999";
         mod.style.backgroundColor = "RGBA(255,255,255,0.8)"
         mod.setAttribute("id", "divElementDTS");
-        /*mod.setAttribute("hidden", "true");*/
+        mod.setAttribute("hidden", "true");
 
         var titulo = document.createElement("h1");
         titulo.style.fontSize = "50px";
