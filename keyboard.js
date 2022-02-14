@@ -79,7 +79,7 @@ var FxKeyboardLocale = '{' +
     '["0", ")"],' +
     '["-", "_"],' +
     '["=", "+"],' +
-    '[{"label": "Delete", "special": 8, "flex": 10, "type": "repeat"}]' + // backspace
+    '[{"label": "Borrar", "special": 8, "flex": 10, "type": "repeat"}]' + // backspace
     '], [' +
     '[{"label": "Tab", "string": "\\t", "flex": 1}],' + // TAB
     '["q", "Q"],' +
@@ -94,7 +94,7 @@ var FxKeyboardLocale = '{' +
     '["p", "P"],' +
     '["&#91;", "&#123;"],' +
     '["&#93;", "&#125;"],' +
-    '[{"label": "HOME", "flex": 3, "special": "HOME"}]' +
+    '[{"label": "Volver", "flex": 3, "special": "Volver"}]' +
     "], [" +
     '[{"label": "@", "string":"@", "flex": 10, "special": 50}],' +
     '["a", "A"],' +
@@ -110,7 +110,7 @@ var FxKeyboardLocale = '{' +
     '["\'", "\\""],' +
     '[{"label": "Enter", "flex": 15, "special": 13}]' +
     '], [' +
-    '[{"label": "Shift", "flex": 10, "special": "shift"}],' +
+    '[{"label": "Mayus", "flex": 10, "special": "shift"}],' +
     '["z", "Z"],' +
     '["x", "X"],' +
     '["c", "C"],' +
@@ -121,9 +121,9 @@ var FxKeyboardLocale = '{' +
     '[",", "<"],' +
     '[".", ">"],' +
     '["/", "?"],' +
-    '[{"label": "Close","special": "closeFX","flex": 10}]' +
+    '[{"label": "Cerrar","special": "closeFX","flex": 10}]' +
     '], [' +
-    '[{"label": "Space", "flex": 5, "special": 32}],' + // space
+    '[{"label": "Espacio", "flex": 5, "special": 32}],' + // space
     '[{"label":".com", "flex": 1}],' +
     '[{"label":".cl", "flex": 1}]' +
     ']]' +
@@ -186,7 +186,7 @@ var FxKeyMap = '{' +
     '"_": 173,' +
     '"=": 61,' +
     '"+": 61,' +
-    '"Delete": 8,' +
+    '"Borrar": 8,' +
     '"q": 81,' +
     '"w": 87,' +
     '"e": 69,' +
@@ -345,7 +345,7 @@ var fxKeyboard = {
         keyD.onmouseenter = function() { keyD.style.backgroundColor = "rgb(200,200,200)"; };
         keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(255,255,255)"; };
 
-        if (obj.label === "Shift") {
+        if (obj.label === "Mayus") {
             keyD.onmouseup = function() {
                 if (fxKeyboard.state === 0) {
                     keyD.style.backgroundColor = "rgb(200,200,200)";
@@ -360,26 +360,26 @@ var fxKeyboard = {
                 }
                 fxKeyboard._setShift();
             };
-        } else if (obj.label === "Delete") {
+        } else if (obj.label === "Borrar") {
             keyD.onmouseup = function() {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
-        } else if (obj.label in { "@": "", ".com": "", ".au": "" }) {
+        } else if (obj.label in { "@": "", ".com": "", ".cl": "" }) {
             keyD.onmouseup = function() {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
-        } else if (obj.label === "Space") {
+        } else if (obj.label === "Espacio") {
             keyD.onmouseup = function() {
                 fxKeyboard._sendKey(" ");
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
-        } else if (obj.label === "Close") {
+        } else if (obj.label === "Cerrar") {
             keyD.onmouseup = function() {
                 fxKeyboard._toggleOpen(false);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
-                fxKeyboard.lastPress = "close";
+                fxKeyboard.lastPress = "Cerrar";
             };
         } else if (obj.label === "Enter") {
             keyD.onmouseup = function() {
@@ -402,7 +402,7 @@ var fxKeyboard = {
                     focussable[index + 1 >= focussable.length ? 0 : index + 1].focus();
                 }
             };
-        } else if (obj.label === "HOME") {
+        } else if (obj.label === "Volver") {
             keyD.onmouseup = function() {
                 window.location.href = "https://www.bancofalabella.cl/";
             }
@@ -442,7 +442,7 @@ var fxKeyboard = {
             fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({ "directive": "slave", "command": "sendKey", "key": character }), "*");
         } else {
             switch (character) {
-                case "Delete":
+                case "Borrar":
                     fxKeyboard.focusElement.value = fxKeyboard.focusElement.value.slice(0, -1);
                     break;
                 case "Enter":
@@ -606,7 +606,7 @@ var fxKeyboard = {
         mod.style.zIndex = "999999";
         mod.style.backgroundColor = "RGBA(255,255,255,0.8)"
         mod.setAttribute("id", "divElementDTS");
-        mod.setAttribute("hidden", "true");
+        /*mod.setAttribute("hidden", "true");*/
 
         var titulo = document.createElement("h1");
         titulo.style.fontSize = "50px";
@@ -637,7 +637,6 @@ var fxKeyboard = {
 
         mod.appendChild(titulo);
         mod.appendChild(paraPresionar);
-
 
         keyb.setAttribute("tabIndex", "-1");
         keyb.style.backgroundColor = "rgba(0,0,0,0.6)";
@@ -819,7 +818,14 @@ var textInputTypes = {
     'datetime-local': '',
     'email': '',
     'month': '',
-    'search': ''
+    'search': '',
+    'div': '',
+    'h1': '',
+    'h2': '',
+    'h3': '',
+    'h4': '',
+    'p': '',
+    'div': ''
 };
 
 var integerInputTypes = {
@@ -832,14 +838,14 @@ var integerInputTypes = {
 
 function oskAction(clicked) {
     if ((fxKeyboard.settings.numpadState === "disabled" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in textInputTypes) &&
-        fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "always") {
+        fxKeyboard.lastPress !== "Cerrar" && fxKeyboard.settings.numpadState !== "always") {
         fxKeyboard.focusElement = document.activeElement;
         fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
         fxKeyboard.focusElementYBottom = document.activeElement.getBoundingClientRect().bottom;
         fxKeyboard.activeOSK = fxKeyboard.inputTypes.keyboard;
         fxKeyboard._toggleOpen(true);
     } else if ((fxKeyboard.settings.numpadState === "always" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in integerInputTypes) &&
-        fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "disabled") {
+        fxKeyboard.lastPress !== "Cerrar" && fxKeyboard.settings.numpadState !== "disabled") {
         fxKeyboard.focusElement = document.activeElement;
         fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
         fxKeyboard.focusElementYBottom = document.activeElement.getBoundingClientRect().bottom;
