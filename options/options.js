@@ -1,8 +1,8 @@
 /*
- FxKeyboard - MOD DTS
- Version: 1.10.2
+OSK DTS
+ Version: 1.10.3
  Author:  Sebastian Cerda
- Date:    09 02 2021
+ Date:    14 02 2021
  Purpose: A virtual Keyboard for client Falabella
  */
 

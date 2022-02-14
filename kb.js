@@ -1,5 +1,5 @@
 /*
- FxKeyboard - MOD DTS
+ OSK DTS
  Version: 1.10.3
  Author:  Sebastian Cerda
  Date:    14 02 2021
