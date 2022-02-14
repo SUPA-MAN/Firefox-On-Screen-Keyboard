@@ -637,6 +637,7 @@ var fxKeyboard = {
 
         mod.appendChild(titulo);
         mod.appendChild(paraPresionar);
+        resetTimer();
 
         keyb.setAttribute("tabIndex", "-1");
         keyb.style.backgroundColor = "rgba(0,0,0,0.6)";
