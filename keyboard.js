@@ -1,6 +1,6 @@
 /*
  OSK DTS
- Version: 1.10.3
+ Version: 2.0.0.0
  Author:  Sebastian Cerda
  Date:    14 02 2021
  Purpose: A virtual Keyboard for client Falabella
@@ -826,7 +826,7 @@ var textInputTypes = {
     'h3': '',
     'h4': '',
     'p': '',
-    'div': ''
+    'body': ''
 };
 
 var integerInputTypes = {
