@@ -1,9 +1,9 @@
 /*
- OSK DTS
- Version: 2.0.0.0
+OSK DTS
+ Version: 2.0.0.0 - E
  Author:  Sebastian Cerda
- Date:    14 02 2021
- Purpose: A virtual Keyboard for client Falabella
+ Date:    17 03 2022
+ Purpose: A virtual Keyboard for client ElectroluX
  */
 
 browser.webNavigation.onCompleted.addListener(function(details) {

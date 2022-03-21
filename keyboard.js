@@ -1,9 +1,9 @@
 /*
- OSK DTS
- Version: 2.0.0.0
+OSK DTS
+ Version: 2.0.0.0 - E
  Author:  Sebastian Cerda
- Date:    14 02 2021
- Purpose: A virtual Keyboard for client Falabella
+ Date:    17 03 2022
+ Purpose: A virtual Keyboard for client ElectroluX
  */
 
 const storageData = browser.storage.local.get();
@@ -289,7 +289,7 @@ var fxKeyboard = {
                 kb.style.height = this.getMaxHeight(this.activeOSK) * this.settings.scale + "px";
                 kb.style.padding = this.settings.padding * this.settings.scale + "px";
                 kb.style.fontFamily = "arial,sans-serif";
-                kb.style.color = "#000000";
+                kb.style.color = "black";
                 kb.style.fontSize = 35 * this.settings.scale + "px";
                 kb.style.borderRadius = 5 * this.settings.scale + "px";
                 for (const element of kb.childNodes) {
@@ -606,7 +606,7 @@ var fxKeyboard = {
         mod.style.zIndex = "999999";
         mod.style.backgroundColor = "RGBA(255,255,255,0.8)"
         mod.setAttribute("id", "divElementDTS");
-        mod.setAttribute("hidden", "true");
+        //mod.setAttribute("hidden", "true");
 
         var titulo = document.createElement("h1");
         titulo.style.fontSize = "50px";
@@ -620,7 +620,8 @@ var fxKeyboard = {
         paraPresionar.style.margin = "0px 0px 10px 96px";
         paraPresionar.style.width = "250px";
         paraPresionar.style.height = "150px";
-        paraPresionar.style.backgroundColor = "#43b02a";
+        paraPresionar.style.background = "rgb(255, 53, 97);";
+        paraPresionar.style.background = "linear-gradient(90deg, rgba(255, 53, 97, 1) 35%, rgba(254, 128, 5, 1) 100%)";
         paraPresionar.style.fontWeight = "500";
         paraPresionar.style.fontSize = "80px";
         paraPresionar.style.color = "white";
@@ -630,7 +631,7 @@ var fxKeyboard = {
         paraPresionar.style.verticalAlign = "center";
 
         paraPresionar.onmousedown = function() {
-            mod.setAttribute("hidden", "true");
+            //mod.setAttribute("hidden", "true");
             EstasAhi = true;
             resetTimer();
         };
@@ -884,16 +885,16 @@ document.onkeydown = resetTimer; // onkeypress is deprectaed
 document.addEventListener('scroll', resetTimer, true); // improved; see comments
 
 function logout() {
-    if ((window.location.origin) === "https://www.bancofalabella.cl") {
+    if ((window.location.origin) === "https://www.shopclub.cl") {
         resetTimer();
     } else {
-        mod.removeAttribute("hidden");
+        //mod.removeAttribute("hidden");
         setTimeout(() => {
             if (EstasAhi) {
                 resetTimer();
                 EstasAhi = false;
             } else {
-                window.location.href = "https://www.bancofalabella.cl/"
+                window.location.href = "https://www.shopclub.cl/"
                 EstasAhi = false;
             }
 
