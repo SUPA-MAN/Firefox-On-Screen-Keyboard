@@ -1,6 +1,6 @@
 /*
 OSK DTS
- Version: 2.0.0.2
+ Version: 2.0.0.3
  Author:  Sebastian Cerda
  Date:    17 03 2022
  Purpose: A virtual Keyboard for client ElectroluX
@@ -606,7 +606,7 @@ var fxKeyboard = {
         mod.style.zIndex = "999999";
         mod.style.backgroundColor = "RGBA(255,255,255,0.8)"
         mod.setAttribute("id", "divElementDTS");
-        //mod.setAttribute("hidden", "true");
+        mod.setAttribute("hidden", "true");
 
         var titulo = document.createElement("h1");
         titulo.style.fontSize = "50px";
@@ -631,7 +631,7 @@ var fxKeyboard = {
         paraPresionar.style.verticalAlign = "center";
 
         paraPresionar.onmousedown = function() {
-            //mod.setAttribute("hidden", "true");
+            mod.setAttribute("hidden", "true");
             EstasAhi = true;
             resetTimer();
         };
@@ -821,13 +821,7 @@ var textInputTypes = {
     'email': '',
     'month': '',
     'search': '',
-    'div': '',
-    'h1': '',
-    'h2': '',
-    'h3': '',
-    'h4': '',
-    'p': '',
-    'body': ''
+    'div': ''
 };
 
 var integerInputTypes = {
@@ -888,7 +882,7 @@ function logout() {
     if ((window.location.origin) === "https://www.shopclub.cl") {
         resetTimer();
     } else {
-        //mod.removeAttribute("hidden");
+        mod.removeAttribute("hidden");
         setTimeout(() => {
             if (EstasAhi) {
                 resetTimer();
