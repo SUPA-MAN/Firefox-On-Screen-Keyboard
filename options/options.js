@@ -1,6 +1,6 @@
 /*
 OSK DTS
- Version: 2.0.0.0 - E
+ Version: 2.0.0.1
  Author:  Sebastian Cerda
  Date:    17 03 2022
  Purpose: A virtual Keyboard for client ElectroluX

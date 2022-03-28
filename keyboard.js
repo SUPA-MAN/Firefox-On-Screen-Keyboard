@@ -1,6 +1,6 @@
 /*
 OSK DTS
- Version: 2.0.0.0 - E
+ Version: 2.0.0.1
  Author:  Sebastian Cerda
  Date:    17 03 2022
  Purpose: A virtual Keyboard for client ElectroluX
@@ -404,7 +404,7 @@ var fxKeyboard = {
             };
         } else if (obj.label === "Volver") {
             keyD.onmouseup = function() {
-                window.location.href = "https://www.bancofalabella.cl/";
+                window.location.href = "https://www.shopclub.cl/";
             }
         };
 
