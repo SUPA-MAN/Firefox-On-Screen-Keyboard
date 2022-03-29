@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "FX OSK MOD - DTS",
-    "version": "1.11.1",
+    "version": "2.0.0.4",
     "description": "On-Screen Keyboard for FireFox KIOSK mode",
     "icons": {
         "48": "icon.svg",

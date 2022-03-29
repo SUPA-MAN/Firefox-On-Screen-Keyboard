@@ -1,7 +1,7 @@
 /*
  FxKeyboard
- Version: 1.10.1
- Author:  Travis Fitzgerald
+ Version: 2.0.0.4
+ Author:  DTS Autservicios.
  Date:    23 March 2021
  Purpose: A virtual keyboard for Firefox
  */
@@ -404,7 +404,7 @@ var fxKeyboard = {
             };
         } else if (obj.label === "HOME") {
             keyD.onmouseup = function() {
-                window.location.href = "https://www.bancofalabella.cl/";
+                window.location.href = "https://www.shopclub.cl/";
             }
         };
 
@@ -620,7 +620,8 @@ var fxKeyboard = {
         paraPresionar.style.margin = "0px 0px 10px 96px";
         paraPresionar.style.width = "250px";
         paraPresionar.style.height = "150px";
-        paraPresionar.style.backgroundColor = "#43b02a";
+        paraPresionar.style.background = "rgb(255, 53, 97);";
+        paraPresionar.style.background = "linear-gradient(90deg, rgba(255, 53, 97, 1) 35%, rgba(254, 128, 5, 1) 100%)";
         paraPresionar.style.fontWeight = "500";
         paraPresionar.style.fontSize = "80px";
         paraPresionar.style.color = "white";
@@ -877,7 +878,7 @@ document.onkeydown = resetTimer; // onkeypress is deprectaed
 document.addEventListener('scroll', resetTimer, true); // improved; see comments
 
 function logout() {
-    if ((window.location.origin) === "https://www.bancofalabella.cl") {
+    if ((window.location.origin) === "https://www.shopclub.cl") {
         resetTimer();
     } else {
         mod.removeAttribute("hidden");
@@ -886,7 +887,7 @@ function logout() {
                 resetTimer();
                 EstasAhi = false;
             } else {
-                window.location.href = "https://www.bancofalabella.cl/"
+                window.location.href = "https://www.shopclub.cl/"
                 EstasAhi = false;
             }
 
@@ -896,5 +897,5 @@ function logout() {
 
 function resetTimer() {
     clearTimeout(time);
-    time = setTimeout(logout, 15000)
+    time = setTimeout(logout, 5000)
 }
