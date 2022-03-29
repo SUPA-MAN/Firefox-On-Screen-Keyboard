@@ -700,7 +700,7 @@ var fxKeyboard = {
         document.body.appendChild(keyb);
         document.body.appendChild(mod)
         this.settings.preScale = this.settings.scale;
-        this._toggleOpen(false);
+        this._toggleOpen(true);
     },
 
     getMaxWidth: function(inputType) {
