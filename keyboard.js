@@ -79,7 +79,7 @@ var FxKeyboardLocale = '{' +
     '["0", ")"],' +
     '["-", "_"],' +
     '["=", "+"],' +
-    '[{"label": "Delete", "special": 8, "flex": 10, "type": "repeat"}]' + // backspace
+    '[{"label": "Borrar", "special": 8, "flex": 10, "type": "repeat"}]' + // backspace
     '], [' +
     '[{"label": "Tab", "string": "\\t", "flex": 1}],' + // TAB
     '["q", "Q"],' +
@@ -94,7 +94,7 @@ var FxKeyboardLocale = '{' +
     '["p", "P"],' +
     '["&#91;", "&#123;"],' +
     '["&#93;", "&#125;"],' +
-    '[{"label": "HOME", "flex": 3, "special": "HOME"}]' +
+    '[{"label": "Volver", "flex": 3, "special": "HOME"}]' +
     "], [" +
     '[{"label": "@", "string":"@", "flex": 10, "special": 50}],' +
     '["a", "A"],' +
@@ -121,9 +121,9 @@ var FxKeyboardLocale = '{' +
     '[",", "<"],' +
     '[".", ">"],' +
     '["/", "?"],' +
-    '[{"label": "Close","special": "closeFX","flex": 10}]' +
+    '[{"label": "Cerrar","special": "closeFX","flex": 10}]' +
     '], [' +
-    '[{"label": "Space", "flex": 5, "special": 32}],' + // space
+    '[{"label": "Espacio", "flex": 5, "special": 32}],' + // space
     '[{"label":".com", "flex": 1}],' +
     '[{"label":".cl", "flex": 1}]' +
     ']]' +
@@ -151,10 +151,10 @@ FxKeyNumpad = JSON.stringify({
         ],
         [
             ["0"],
-            [{ "label": "Delete", "special": 8, "flex": 1, "type": "repeat" }]
+            [{ "label": "Borrar", "special": 8, "flex": 1, "type": "repeat" }]
         ],
         [
-            [{ "label": "Close", "special": "closeFX", "flex": 1 }]
+            [{ "label": "Cerrar", "special": "closeFX", "flex": 1 }]
         ]
     ]
 });
@@ -186,7 +186,7 @@ var FxKeyMap = '{' +
     '"_": 173,' +
     '"=": 61,' +
     '"+": 61,' +
-    '"Delete": 8,' +
+    '"Borrar": 8,' +
     '"q": 81,' +
     '"w": 87,' +
     '"e": 69,' +
@@ -360,7 +360,7 @@ var fxKeyboard = {
                 }
                 fxKeyboard._setShift();
             };
-        } else if (obj.label === "Delete") {
+        } else if (obj.label === "Borrar") {
             keyD.onmouseup = function() {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
@@ -370,12 +370,12 @@ var fxKeyboard = {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
-        } else if (obj.label === "Space") {
+        } else if (obj.label === "Espacio") {
             keyD.onmouseup = function() {
                 fxKeyboard._sendKey(" ");
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
-        } else if (obj.label === "Close") {
+        } else if (obj.label === "Cerrar") {
             keyD.onmouseup = function() {
                 fxKeyboard._toggleOpen(false);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
@@ -402,7 +402,7 @@ var fxKeyboard = {
                     focussable[index + 1 >= focussable.length ? 0 : index + 1].focus();
                 }
             };
-        } else if (obj.label === "HOME") {
+        } else if (obj.label === "Volver") {
             keyD.onmouseup = function() {
                 window.location.href = "https://www.shopclub.cl/";
             }
@@ -442,7 +442,7 @@ var fxKeyboard = {
             fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({ "directive": "slave", "command": "sendKey", "key": character }), "*");
         } else {
             switch (character) {
-                case "Delete":
+                case "Borrar":
                     fxKeyboard.focusElement.value = fxKeyboard.focusElement.value.slice(0, -1);
                     break;
                 case "Enter":
@@ -620,7 +620,6 @@ var fxKeyboard = {
         paraPresionar.style.margin = "0px 0px 10px 96px";
         paraPresionar.style.width = "250px";
         paraPresionar.style.height = "150px";
-        paraPresionar.style.background = "rgb(255, 53, 97);";
         paraPresionar.style.background = "linear-gradient(90deg, rgba(255, 53, 97, 1) 35%, rgba(254, 128, 5, 1) 100%)";
         paraPresionar.style.fontWeight = "500";
         paraPresionar.style.fontSize = "80px";
@@ -700,7 +699,7 @@ var fxKeyboard = {
         document.body.appendChild(keyb);
         document.body.appendChild(mod)
         this.settings.preScale = this.settings.scale;
-        this._toggleOpen(true);
+        this._toggleOpen(false);
     },
 
     getMaxWidth: function(inputType) {
@@ -820,7 +819,8 @@ var textInputTypes = {
     'datetime-local': '',
     'email': '',
     'month': '',
-    'search': ''
+    'search': '',
+    'div': ''
 };
 
 var integerInputTypes = {
