@@ -38,7 +38,7 @@ function onError(error) {
 }
 
 var xpath = {
-    getXPathOfElement: function(elt) {
+    getXPathOfElement: function (elt) {
         var path = "";
         for (; elt && elt.nodeType == 1; elt = elt.parentNode) {
             idx = xpath.getElementIdx(elt);
@@ -50,7 +50,7 @@ var xpath = {
         return path;
     },
 
-    getElementIdx: function(elt) {
+    getElementIdx: function (elt) {
         var count = 1;
         for (var sib = elt.previousSibling; sib; sib = sib.previousSibling) {
             if (sib.nodeType == 1 && sib.tagName == elt.tagName)
@@ -231,6 +231,8 @@ var FxKeyMap = '{' +
     '"?": 191' +
     '}';
 
+var acumulador = "";
+var lastPressInput;
 
 var fxKeyboard = {
 
@@ -258,7 +260,7 @@ var fxKeyboard = {
         slavedIFrame: null
     },
 
-    _toggleOpen: function(open) {
+    _toggleOpen: function (open) {
         if (document.getElementById(this.activeOSK) === null) {
             this.insertKeyboard(this.activeOSK);
         }
@@ -301,10 +303,10 @@ var fxKeyboard = {
                     }
                 }
                 if ((((kb.getBoundingClientRect().top !== 0 ? this.focusElementYBottom : this.focusElementYTop) + window.scrollY) >
-                        ((kb.getBoundingClientRect().top !== 0 ? kb.getBoundingClientRect().top : kb.getBoundingClientRect().bottom) + window.scrollY))) {
+                    ((kb.getBoundingClientRect().top !== 0 ? kb.getBoundingClientRect().top : kb.getBoundingClientRect().bottom) + window.scrollY))) {
                     kb.style.top = 0;
                 } else if ((((kb.getBoundingClientRect().bottom !== window.innerHeight ? kb.getBoundingClientRect().bottom : kb.getBoundingClientRect().top) + window.scrollY) >
-                        ((kb.getBoundingClientRect().bottom !== window.innerHeight ? this.focusElementYTop : this.focusElementYBottom) + window.scrollY))) {
+                    ((kb.getBoundingClientRect().bottom !== window.innerHeight ? this.focusElementYTop : this.focusElementYBottom) + window.scrollY))) {
                     kb.style.bottom = 0;
                     kb.style.top = null;
                 }
@@ -319,7 +321,7 @@ var fxKeyboard = {
         }
     },
 
-    _isOSKOpen: function() {
+    _isOSKOpen: function () {
         var kb = document.getElementById(this.activeOSK);
         return kb != null ? kb.style.display === 'block' : false;
     },
@@ -340,19 +342,19 @@ var fxKeyboard = {
     previousOSK: null,
     activeOSK: null,
 
-    _setSpecialFunctions: function(keyD, obj) {
-        keyD.onmousedown = function() { keyD.style.backgroundColor = "rgb(150,150,150)"; };
-        keyD.onmouseenter = function() { keyD.style.backgroundColor = "rgb(200,200,200)"; };
-        keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(255,255,255)"; };
+    _setSpecialFunctions: function (keyD, obj) {
+        keyD.onmousedown = function () { keyD.style.backgroundColor = "rgb(150,150,150)"; };
+        keyD.onmouseenter = function () { keyD.style.backgroundColor = "rgb(200,200,200)"; };
+        keyD.onmouseout = function () { keyD.style.backgroundColor = "rgb(255,255,255)"; };
 
         if (obj.label === "Shift") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 if (fxKeyboard.state === 0) {
                     keyD.style.backgroundColor = "rgb(200,200,200)";
-                    keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(200,200,200)"; };
+                    keyD.onmouseout = function () { keyD.style.backgroundColor = "rgb(200,200,200)"; };
                     fxKeyboard.state++;
                 } else if (fxKeyboard.state === 1) {
-                    keyD.onmouseout = function() { keyD.style.backgroundColor = "rgb(150,150,150)"; };
+                    keyD.onmouseout = function () { keyD.style.backgroundColor = "rgb(150,150,150)"; };
                     keyD.style.backgroundColor = "rgb(150,150,150)";
                     fxKeyboard.state++;
                 } else if (fxKeyboard.state === 2) {
@@ -361,40 +363,40 @@ var fxKeyboard = {
                 fxKeyboard._setShift();
             };
         } else if (obj.label === "Borrar") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
         } else if (obj.label in { "@": "", ".com": "", ".cl": "" }) {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 fxKeyboard._sendKey(obj.label);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
         } else if (obj.label === "Espacio") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 fxKeyboard._sendKey(" ");
                 keyD.style.backgroundColor = "rgb(255,255,255)";
             };
         } else if (obj.label === "Cerrar") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 fxKeyboard._toggleOpen(false);
                 keyD.style.backgroundColor = "rgb(255,255,255)";
                 fxKeyboard.lastPress = "Cerrar";
             };
         } else if (obj.label === "Enter") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 keyD.style.backgroundColor = "rgb(255,255,255)";
                 fxKeyboard._sendKey(obj.label);
             };
         } else if (obj.label === "Tab") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 keyD.style.backgroundColor = "rgb(255,255,255)";
                 var focussableElements = 'input:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
                 console.log(document.activeElement);
                 console.log(document.activeElement.form);
                 if (document.activeElement && document.activeElement.form) {
                     var focussable = Array.prototype.filter.call(document.activeElement.form.querySelectorAll(focussableElements),
-                        function(element) {
+                        function (element) {
                             return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
                         });
                     console.log(focussable);
@@ -403,7 +405,7 @@ var fxKeyboard = {
                 }
             };
         } else if (obj.label === "Volver") {
-            keyD.onmouseup = function() {
+            keyD.onmouseup = function () {
                 window.location.href = "https://www.bancofalabella.cl/";
             }
         };
@@ -412,7 +414,7 @@ var fxKeyboard = {
         return keyD;
     },
 
-    _setShift: function() {
+    _setShift: function () {
         if (this.state > 0) {
             var secElements = document.getElementsByClassName("fxkey-secondary");
             var priElements = document.getElementsByClassName("fxkey-primary");
@@ -427,7 +429,7 @@ var fxKeyboard = {
             var priElements = document.getElementsByClassName("fxkey-primary");
             var shiftK = document.getElementById("fxkey-shift");
             shiftK.style.backgroundColor = "rgb(255,255,255)";
-            shiftK.onmouseout = function() { shiftK.style.backgroundColor = "rgb(255,255,255)"; };
+            shiftK.onmouseout = function () { shiftK.style.backgroundColor = "rgb(255,255,255)"; };
             for (var i = 0; secElements.length > i; i++) {
                 secElements[i].style.display = "none";
             }
@@ -437,13 +439,24 @@ var fxKeyboard = {
         }
     },
 
-    _sendKey: function(character) {
+    _sendKey: function (character) {
         if (fxKeyboard.hierarchy.isMaster && fxKeyboard.hierarchy.slavedIFrame != null) {
             fxKeyboard.hierarchy.slavedIFrame.contentWindow.postMessage(JSON.stringify({ "directive": "slave", "command": "sendKey", "key": character }), "*");
         } else {
+            if(fxKeyboard.focusElement != lastPressInput){
+                lastPressInput = fxKeyboard.focusElement
+                acumulador = "";
+            }
+            lastPressInput = fxKeyboard.focusElement;
             switch (character) {
                 case "Borrar":
                     fxKeyboard.focusElement.value = fxKeyboard.focusElement.value.slice(0, -1);
+                    if (acumulador != "") 
+                    {
+                        fxKeyboard.focusElement.value = acumulador = acumulador.slice(0, -1)
+                    } else { 
+                        acumulador = ""; 
+                    }
                     break;
                 case "Enter":
                     fxKeyboard.focusElement.dispatchEvent(new KeyboardEvent("beforeinput", { "key": character, "shiftKey": false, "keyCode": (JSON.parse(FxKeyMap))[character] }));
@@ -454,8 +467,14 @@ var fxKeyboard = {
                     }
                     break;
                 default:
-                    fxKeyboard.focusElement.value = fxKeyboard.focusElement.value === null ? "" + character : fxKeyboard.focusElement.value + character;
-
+                    debugger;
+                    if (window.location.href.includes("viajesfalabella")) {
+                        acumulador += character;
+                        fxKeyboard.focusElement.value = acumulador;
+                    }
+                    else {
+                        fxKeyboard.focusElement.value = fxKeyboard.focusElement.value === null ? "" + character : fxKeyboard.focusElement.value + character;
+                    }
                     if (fxKeyboard.state === 1) {
                         fxKeyboard.state = 0;
                         fxKeyboard._setShift();
@@ -470,7 +489,7 @@ var fxKeyboard = {
         }
     },
 
-    _buildKey: function(char, primary) {
+    _buildKey: function (char, primary) {
         var key = document.createElement("div");
         key.style.width = this.settings.key_height * this.settings.scale + "px";
         key.style.height = this.settings.key_height * this.settings.scale + "px";
@@ -490,12 +509,12 @@ var fxKeyboard = {
         key.style.cursor = "pointer";
         key.style.backgroundColor = "rgb(255,255,255)";
         key.innerHTML = char;
-        key.onmouseenter = function() { key.style.backgroundColor = "rgb(200,200,200)"; };
-        key.onmouseout = function() { key.style.backgroundColor = "rgb(255,255,255)"; };
-        key.onmousedown = function() {
+        key.onmouseenter = function () { key.style.backgroundColor = "rgb(200,200,200)"; };
+        key.onmouseout = function () { key.style.backgroundColor = "rgb(255,255,255)"; };
+        key.onmousedown = function () {
             key.style.backgroundColor = "rgb(150,150,150)";
         };
-        key.onmouseup = function() {
+        key.onmouseup = function () {
             key.style.backgroundColor = "rgb(200,200,200)";
             if (char.indexOf("&#") !== -1) {
                 char = key.innerHTML;
@@ -509,7 +528,7 @@ var fxKeyboard = {
         return key;
     },
 
-    _buildKeyFlex: function(char, primary, flex) {
+    _buildKeyFlex: function (char, primary, flex) {
         var key = document.createElement("div");
         key.style.width = this.settings.key_height * this.settings.scale + "px";
         key.style.height = this.settings.key_height * this.settings.scale + "px";
@@ -531,12 +550,12 @@ var fxKeyboard = {
         key.style.backgroundColor = "rgb(255,255,255)";
         key.innerHTML = char;
         console.log("FlexGrow of standard key is: " + key.style.flexGrow);
-        key.onmouseenter = function() { key.style.backgroundColor = "rgb(200,200,200)"; };
-        key.onmouseout = function() { key.style.backgroundColor = "rgb(255,255,255)"; };
-        key.onmousedown = function() {
+        key.onmouseenter = function () { key.style.backgroundColor = "rgb(200,200,200)"; };
+        key.onmouseout = function () { key.style.backgroundColor = "rgb(255,255,255)"; };
+        key.onmousedown = function () {
             key.style.backgroundColor = "rgb(150,150,150)";
         };
-        key.onmouseup = function() {
+        key.onmouseup = function () {
             key.style.backgroundColor = "rgb(200,200,200)";
             if (char.indexOf("&#") !== -1) {
                 char = key.innerHTML;
@@ -550,7 +569,7 @@ var fxKeyboard = {
         return key;
     },
 
-    _buildSpecialKey: function(obj) {
+    _buildSpecialKey: function (obj) {
         var key = document.createElement("div");
         key.style.width = this.settings.key_height * this.settings.scale + "px";
         key.style.height = this.settings.key_height * this.settings.scale + "px";
@@ -568,7 +587,7 @@ var fxKeyboard = {
         return key;
     },
 
-    insertKeyboard: function(inputType) {
+    insertKeyboard: function (inputType) {
         var keyb;
 
         //DTS
@@ -600,7 +619,7 @@ var fxKeyboard = {
         mod.style.top = "50%";
         mod.style.left = "50%";
         mod.style.margin = "-50px 0px 0px -180px";
-        mod.style.width = "465px";
+        //mod.style.width = "465px";
         mod.style.height = "325px";
         mod.style.position = "fixed";
         mod.style.zIndex = "999999";
@@ -629,7 +648,7 @@ var fxKeyboard = {
         paraPresionar.innerHTML = "SÍ";
         paraPresionar.style.verticalAlign = "center";
 
-        paraPresionar.onmousedown = function() {
+        paraPresionar.onmousedown = function () {
             mod.setAttribute("hidden", "true");
             EstasAhi = true;
             resetTimer();
@@ -697,12 +716,13 @@ var fxKeyboard = {
             }
         }
         document.body.appendChild(keyb);
+        resetTimer();
         document.body.appendChild(mod)
         this.settings.preScale = this.settings.scale;
-        this._toggleOpen(true);
+        this._toggleOpen(false);
     },
 
-    getMaxWidth: function(inputType) {
+    getMaxWidth: function (inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 return this.settings.kb_max_width;
@@ -711,7 +731,7 @@ var fxKeyboard = {
         }
     },
 
-    getMaxHeight: function(inputType) {
+    getMaxHeight: function (inputType) {
         switch (inputType) {
             case fxKeyboard.inputTypes.keyboard:
                 return this.settings.kb_max_height;
@@ -819,14 +839,7 @@ var textInputTypes = {
     'datetime-local': '',
     'email': '',
     'month': '',
-    'search': '',
-    'div': '',
-    'h1': '',
-    'h2': '',
-    'h3': '',
-    'h4': '',
-    'p': '',
-    'body': ''
+    'search': ''
 };
 
 var integerInputTypes = {
