@@ -468,9 +468,10 @@ var fxKeyboard = {
                     break;
                 default:
                     debugger;
-                    if (window.location.href.includes("viajesfalabella")) {
+                    if ((window.location.href.includes("viajesfalabella"))  || (window.location.href.includes("tottus"))) {
                         acumulador += character;
                         fxKeyboard.focusElement.value = acumulador;
+                        fxKeyboard.focusElement.focus();
                     }
                     else {
                         fxKeyboard.focusElement.value = fxKeyboard.focusElement.value === null ? "" + character : fxKeyboard.focusElement.value + character;
@@ -915,6 +916,6 @@ function logout() {
 }
 
 function resetTimer() {
-    clearTimeout(time);
-    time = setTimeout(logout, 15000)
+    //clearTimeout(time);
+    //time = setTimeout(logout, 15000)
 }
