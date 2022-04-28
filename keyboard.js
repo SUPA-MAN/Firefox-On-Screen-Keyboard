@@ -878,7 +878,8 @@ document.onkeydown = resetTimer; // onkeypress is deprectaed
 document.addEventListener('scroll', resetTimer, true); // improved; see comments
 
 function logout() {
-    if ((window.location.origin) === "https://www.shopclub.cl") {
+    if ((window.location.origin === "https://www.shopclub.cl") ||
+    (window.location.origin === "https://io.vtexpayments.com.br") ) {
         resetTimer();
     } else {
         mod.removeAttribute("hidden");
@@ -891,11 +892,11 @@ function logout() {
                 EstasAhi = false;
             }
 
-        }, 7000);
+        }, 15000);
     }
 }
 
 function resetTimer() {
     clearTimeout(time);
-    time = setTimeout(logout, 5000)
+    time = setTimeout(logout, 10000)
 }
