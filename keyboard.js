@@ -838,14 +838,14 @@ function oskAction(clicked) {
         fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
         fxKeyboard.focusElementYBottom = document.activeElement.getBoundingClientRect().bottom;
         fxKeyboard.activeOSK = fxKeyboard.inputTypes.keyboard;
-        fxKeyboard._toggleOpen(true);
+        fxKeyboard._toggleOpen(false);
     } else if ((fxKeyboard.settings.numpadState === "always" ? document.activeElement.type in textInputTypes || document.activeElements.type in integerInputTypes : document.activeElement.type in integerInputTypes) &&
         fxKeyboard.lastPress !== "close" && fxKeyboard.settings.numpadState !== "disabled") {
         fxKeyboard.focusElement = document.activeElement;
         fxKeyboard.focusElementYTop = document.activeElement.getBoundingClientRect().top;
         fxKeyboard.focusElementYBottom = document.activeElement.getBoundingClientRect().bottom;
         fxKeyboard.activeOSK = fxKeyboard.inputTypes.numpad;
-        fxKeyboard._toggleOpen(true);
+        fxKeyboard._toggleOpen(false);
     } else {
         if (clicked.target.id.indexOf("fxkey") === -1) {
             fxKeyboard._toggleOpen(false);
@@ -892,11 +892,11 @@ function logout() {
                 EstasAhi = false;
             }
 
-        }, 15000);
+        }, 30*1000);
     }
 }
 
 function resetTimer() {
     clearTimeout(time);
-    time = setTimeout(logout, 10000)
+    time = setTimeout(logout, 25*1000)
 }
